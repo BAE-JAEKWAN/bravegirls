@@ -94,26 +94,6 @@
           document.body.classList.add("curtains-ready");
           let length = multiTexturesPlane.videos.length;
 
-          // planeElements[0].addEventListener("click", () => {
-          //   gsap.to(multiTexturesPlane.uniforms.transitionTimer, {
-          //     duration: duration,
-          //     value: currentTexture + 1,
-          //     easing: 'power2.in',
-          //     onStart: () => {
-          //       multiTexturesPlane.videos[(currentTexture + 1) % length].play();
-          //       currentTexture = currentTexture + 1;
-          //     },
-          //     onComplete: () => {
-          //       multiTexturesPlane.videos[
-          //         (currentTexture + length - 1) % length
-          //       ].pause();
-          //       multiTexturesPlane.videos[
-          //         (currentTexture + length + 1) % length
-          //       ].pause();
-          //     },
-          //   });
-          // });
-
           navElements.forEach((nav) => {
             nav.addEventListener("click", (event) => {
               let to = event.target.getAttribute("data-nav");
