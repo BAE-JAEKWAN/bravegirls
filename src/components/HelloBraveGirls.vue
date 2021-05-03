@@ -4,7 +4,7 @@
           <button class="frame__button" id="intro"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60" width="60" height="60"><path d="M45.563 29.174l-22-15A1 1 0 0022 15v30a.999.999 0 001.563.826l22-15a1 1 0 000-1.652zM24 43.107V16.893L43.225 30 24 43.107z"/><path d="M30 0C13.458 0 0 13.458 0 30s13.458 30 30 30 30-13.458 30-30S46.542 0 30 0zm0 58C14.561 58 2 45.439 2 30S14.561 2 30 2s28 12.561 28 28-12.561 28-28 28z"/></svg></button>
           <div class="frame__content">
               <h2 class="frame__content-title">BRAVE GIRLS</h2>
-              <p class="frame__content-text">Select another video here:</p>
+              <p class="frame__content-text">Select BRAVEGIRLS music video!!</p>
               <nav class="frame__switch" id="nav">
                   <a class="frame__switch-item js-nav" data-nav="0">Rollin</a>
                   <a class="frame__switch-item js-nav" data-nav="1">high heels</a>
