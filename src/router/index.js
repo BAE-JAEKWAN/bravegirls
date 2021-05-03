@@ -1,6 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import HelloBraveGirls from '@/components/HelloBraveGirls'
+import HelloBraveGirls from '@/components/HelloBraveGirls.vue'
 
 Vue.use(VueRouter);
 
