@@ -1,7 +1,7 @@
 <template>
   <main>
       <div class="frame">
-          <button class="frame__button" id="intro"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60" width="60" height="60"><path d="M45.563 29.174l-22-15A1 1 0 0022 15v30a.999.999 0 001.563.826l22-15a1 1 0 000-1.652zM24 43.107V16.893L43.225 30 24 43.107z"/><path d="M30 0C13.458 0 0 13.458 0 30s13.458 30 30 30 30-13.458 30-30S46.542 0 30 0zm0 58C14.561 58 2 45.439 2 30S14.561 2 30 2s28 12.561 28 28-12.561 28-28 28z"/></svg></button>
+          <button class="frame__button" id="intro" @click="fadeOutIntro()"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60" width="60" height="60"><path d="M45.563 29.174l-22-15A1 1 0 0022 15v30a.999.999 0 001.563.826l22-15a1 1 0 000-1.652zM24 43.107V16.893L43.225 30 24 43.107z"/><path d="M30 0C13.458 0 0 13.458 0 30s13.458 30 30 30 30-13.458 30-30S46.542 0 30 0zm0 58C14.561 58 2 45.439 2 30S14.561 2 30 2s28 12.561 28 28-12.561 28-28 28z"/></svg></button>
           <div class="frame__content">
               <h2 class="frame__content-title">BRAVE GIRLS</h2>
               <p class="frame__content-text">Select BRAVEGIRLS music video!!</p>
@@ -32,7 +32,6 @@
   import vertex from "@/assets/shaders_circle/vertex.glsl";
 
   export default {
-
     name: "HelloBraveGirls",
     mounted() {
       // let activeTexture = 0;
@@ -40,8 +39,9 @@
       // let transitionTimer = 0;
       let timer = 0;
       let isRunning = 0;
+
       // set up our WebGL context and append the canvas to our wrapper
-      const curtains = new Curtains({
+      this.curtains = new Curtains({
         container: "canvas",
         alpha: true,
         pixelRatio: Math.min(1.5, window.devicePixelRatio), // limit pixel ratio for performance
@@ -84,15 +84,14 @@
         },
       };
 
-      const multiTexturesPlane = new Plane(curtains, planeElements[0], params);
+      this.multiTexturesPlane = new Plane(this.curtains, planeElements[0], params);
 
       // set up our basic methods
-      multiTexturesPlane
+      this.multiTexturesPlane
         .onReady(() => {
           // display the button
-
           document.body.classList.add("curtains-ready");
-          let length = multiTexturesPlane.videos.length;
+          let length = this.multiTexturesPlane.videos.length;
 
           navElements.forEach((nav) => {
             nav.addEventListener("click", (event) => {
@@ -105,7 +104,7 @@
               event.target.classList.add("frame__switch-item--current");
               isRunning = true;
 
-              multiTexturesPlane.uniforms.to.value = to;
+              this.multiTexturesPlane.uniforms.to.value = to;
 
               let fake = { progress: 0 };
               gsap.to(fake, {
@@ -113,22 +112,22 @@
                 progress: 1,
                 easing: Power2.easeIn,
                 onStart: () => {
-                  multiTexturesPlane.videos[to].play();
+                  this.multiTexturesPlane.videos[to].play();
                   currentTexture = to;
                 },
                 onUpdate: () => {
                   if (fake.progress === 1) {
-                    multiTexturesPlane.uniforms.from.value = to;
+                    this.multiTexturesPlane.uniforms.from.value = to;
                   }
-                  multiTexturesPlane.uniforms.transitionTimer.value =
+                  this.multiTexturesPlane.uniforms.transitionTimer.value =
                     fake.progress;
                 },
                 onComplete: () => {
-                  multiTexturesPlane.uniforms.from.value = to;
-                  multiTexturesPlane.videos[
+                  this.multiTexturesPlane.uniforms.from.value = to;
+                  this.multiTexturesPlane.videos[
                     (currentTexture + length - 1) % length
                   ].pause();
-                  multiTexturesPlane.videos[
+                  this.multiTexturesPlane.videos[
                     (currentTexture + length + 1) % length
                   ].pause();
                   isRunning = false;
@@ -136,37 +135,35 @@
               });
             });
           });
-
-          // click to play the videos
-          document.getElementById("intro").addEventListener(
-            "click",
-            () => {
-              // fade out animation
-              gsap.to("#intro", { duration: 0.1, autoAlpha: 0 });
-              document.body.classList.add("video-started");
-
-              gsap.to(multiTexturesPlane.uniforms.fadeIn, {
-                duration: 1,
-                value: 1,
-              });
-
-              // play all videos to force uploading the first frame of each texture
-              multiTexturesPlane.playVideos();
-
-              // wait a tick and pause the rest of videos (the ones that are hidden)
-              curtains.nextRender(() => {
-                multiTexturesPlane.videos[1].pause();
-                multiTexturesPlane.videos[2].pause();
-              });
-            },
-            false
-          );
         })
         .onRender(() => {
           timer += 0.001;
-          multiTexturesPlane.uniforms.timer.value = timer;
+          this.multiTexturesPlane.uniforms.timer.value = timer;
         });
+      
     },
+    methods: {
+      fadeOutIntro() {
+        console.log('영상 실행')
+        // fade out animation
+        gsap.to("#intro", { duration: 0.1, autoAlpha: 0 });
+        document.body.classList.add("video-started");
+
+        gsap.to(this.multiTexturesPlane.uniforms.fadeIn, {
+          duration: 1,
+          value: 1,
+        });
+
+        // play all videos to force uploading the first frame of each texture
+        this.multiTexturesPlane.playVideos();
+
+        // wait a tick and pause the rest of videos (the ones that are hidden)
+        this.curtains.nextRender(() => {
+          this.multiTexturesPlane.videos[1].pause();
+          this.multiTexturesPlane.videos[2].pause();
+        });
+      },
+    }
   }
 </script>
 
