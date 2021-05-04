@@ -6,7 +6,8 @@
               <h2 class="frame__content-title">BRAVE GIRLS</h2>
               <p class="frame__content-text">Select BRAVEGIRLS music video!!</p>
               <nav class="frame__switch" id="nav">
-                  <a class="frame__switch-item js-nav" ref="jsNav" 
+                  <a class="frame__switch-item" 
+                   ref="jsNav" 
                    v-for="(navItem, navItemKey) in navItems"
                    :key="navItemKey"
                    :dataNav="navItemKey"
@@ -69,7 +70,8 @@
 
       // get our plane element
       const planeElements = [...document.getElementsByClassName("plane")];
-      const navElements = [...document.getElementsByClassName("js-nav")];
+      const navElements = [...this.$refs.jsNav];
+      console.log(navElements)
       const duration = this.dataDuration || 10
       // set our initial parameters (basic uniforms)
       const params = {
