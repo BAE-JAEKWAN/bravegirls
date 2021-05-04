@@ -21,9 +21,19 @@
           <div id="canvas"></div>
           <div class="wrapper">
               <div class="plane">
-                  <video playsinline muted src="@/assets/videos/Rollin.webm" data-sampler="firstTexture" preload="auto"></video>
-                  <video playsinline muted src="@/assets/videos/HighHeels.webm" data-sampler="secondTexture"></video>
-                  <video playsinline muted src="@/assets/videos/WeRide.webm" data-sampler="thirdTexture"></video>
+                  <video playsinline muted preload="auto"
+                   v-for="videoItem in videoItems"
+                   :key="videoItem.index"
+                   :src="`/videos/${videoItem.fileName}`"
+                   :data-sampler="videoItem.dataSampler"
+                  ></video>
+                  <!-- 리터럴 경로로 설정할 때는 vue.config.js에서 설정하고 아래처럼 하면 된다 -->
+                  <!-- :src="require(`~/assets/videos/${url}`)" -->
+                  
+                  <!-- <video playsinline muted src="@/assets/videos/Rollin.webm" data-sampler="firstTexture" preload="auto"></video>
+                  <video playsinline muted src="@/assets/videos/HighHeels.webm" data-sampler="secondTexture" preload="auto"></video>
+                  <video playsinline muted src="@/assets/videos/WeRide.webm" data-sampler="thirdTexture" preload="auto"></video> -->
+                 
               </div>
           </div>
       </div>
@@ -49,6 +59,20 @@
           },
           {
             title: 'We Ride',
+          },
+        ],
+        videoItems: [
+          {
+            fileName: 'Rollin.webm',
+            dataSampler: 'firstTexture'
+          },
+          {
+            fileName: 'HighHeels.webm',
+            dataSampler: 'secondTexture'
+          },
+          {
+            fileName: 'WeRide.webm',
+            dataSampler: 'thirdTexture'
           },
         ],
         dataDuration: 2.5
@@ -164,6 +188,9 @@
       console.log('mounted complete')
     },
     methods: {
+      loadVideo(url){
+        return require(`~/assets/videos/${url}`)
+      },
       fadeOutIntro() {
         // fade out animation
         gsap.to("#intro", { duration: 0.1, autoAlpha: 0 });
