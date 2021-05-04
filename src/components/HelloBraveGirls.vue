@@ -6,9 +6,13 @@
               <h2 class="frame__content-title">BRAVE GIRLS</h2>
               <p class="frame__content-text">Select BRAVEGIRLS music video!!</p>
               <nav class="frame__switch" id="nav">
-                  <a class="frame__switch-item js-nav" data-nav="0">Rollin</a>
-                  <a class="frame__switch-item js-nav" data-nav="1">high heels</a>
-                  <a class="frame__switch-item js-nav" data-nav="2">We Ride</a>
+                  <a class="frame__switch-item js-nav" ref="jsNav" 
+                   v-for="(navItem, navItemKey) in navItems"
+                   :key="navItemKey"
+                   :dataNav="navItemKey"
+                  >
+                    {{ navItem.title }}
+                  </a>
               </nav>
           </div>
       </div>
@@ -35,6 +39,17 @@
     name: "HelloBraveGirls",
     data() {
       return {
+        navItems: [
+          {
+            title: 'Rollin',
+          },
+          {
+            title: 'high heels',
+          },
+          {
+            title: 'We Ride',
+          },
+        ],
         dataDuration: 2.5
       }
     },
@@ -100,7 +115,7 @@
 
           navElements.forEach((nav) => {
             nav.addEventListener("click", (event) => {
-              let to = event.target.getAttribute("data-nav");
+              let to = event.target.getAttribute("dataNav");
               if (isRunning || to == currentTexture) return;
               var elems = document.querySelectorAll(".frame__switch-item");
               [].forEach.call(elems, function (el) {
