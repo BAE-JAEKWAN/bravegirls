@@ -71,7 +71,6 @@
       // get our plane element
       const planeElements = [...document.getElementsByClassName("plane")];
       const navElements = [...this.$refs.jsNav];
-      console.log(navElements)
       const duration = this.dataDuration || 10
       // set our initial parameters (basic uniforms)
       const params = {
