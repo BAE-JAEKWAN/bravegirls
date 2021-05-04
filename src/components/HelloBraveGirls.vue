@@ -15,7 +15,7 @@
       <div class="video">
           <div id="canvas"></div>
           <div class="wrapper">
-              <div class="plane" data-duration="2.5">
+              <div class="plane">
                   <video playsinline muted src="@/assets/videos/Rollin.webm" data-sampler="firstTexture" preload="auto"></video>
                   <video playsinline muted src="@/assets/videos/HighHeels.webm" data-sampler="secondTexture"></video>
                   <video playsinline muted src="@/assets/videos/WeRide.webm" data-sampler="thirdTexture"></video>
@@ -33,6 +33,11 @@
 
   export default {
     name: "HelloBraveGirls",
+    data() {
+      return {
+        dataDuration: 2.5
+      }
+    },
     mounted() {
       // let activeTexture = 0;
       let currentTexture = 0;
@@ -50,7 +55,7 @@
       // get our plane element
       const planeElements = [...document.getElementsByClassName("plane")];
       const navElements = [...document.getElementsByClassName("js-nav")];
-      const duration = planeElements[0].getAttribute("data-duration") || 2;
+      const duration = this.dataDuration || 10
       // set our initial parameters (basic uniforms)
       const params = {
         vertexShader: vertex,
@@ -90,7 +95,7 @@
       this.multiTexturesPlane
         .onReady(() => {
           // display the button
-          document.body.classList.add("curtains-ready");
+          // document.body.classList.add("curtains-ready");
           let length = this.multiTexturesPlane.videos.length;
 
           navElements.forEach((nav) => {
@@ -140,11 +145,10 @@
           timer += 0.001;
           this.multiTexturesPlane.uniforms.timer.value = timer;
         });
-      
+      console.log('mounted complete')
     },
     methods: {
       fadeOutIntro() {
-        console.log('영상 실행')
         // fade out animation
         gsap.to("#intro", { duration: 0.1, autoAlpha: 0 });
         document.body.classList.add("video-started");
