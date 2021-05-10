@@ -33,7 +33,6 @@
                   <!-- <video playsinline muted src="@/assets/videos/Rollin.webm" data-sampler="firstTexture" preload="auto"></video>
                   <video playsinline muted src="@/assets/videos/HighHeels.webm" data-sampler="secondTexture" preload="auto"></video>
                   <video playsinline muted src="@/assets/videos/WeRide.webm" data-sampler="thirdTexture" preload="auto"></video> -->
-                 
               </div>
           </div>
       </div>
@@ -55,7 +54,7 @@
             title: 'Rollin',
           },
           {
-            title: 'high heels',
+            title: 'High heels',
           },
           {
             title: 'We Ride',
