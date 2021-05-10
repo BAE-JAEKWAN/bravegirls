@@ -8,7 +8,8 @@ module.exports = {
 			alias: {
 				'~': path.resolve(__dirname, vueSrc)
 			},
-			extensions: ['.vue']
+			extensions: ['*', '.js', '.vue', '.json']
 		}
-	}
+	},
+	outputDir: path.resolve(__dirname, "./dist"),
 }
